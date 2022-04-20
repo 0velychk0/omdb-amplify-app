@@ -1,5 +1,5 @@
 {
-  "name": "amplifyapp",
+  "name": "omdb-amplify-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
