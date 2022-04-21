@@ -2,12 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import TableModule from "./TableSearchModule";
+import TableSearchModule from "./TableSearchModule";
+
+// const RootStack = createStackNavigator(
+//   {
+//     Home: HomeScreen,
+//     Details: DetailsScreen,
+//   },
+//   {
+//     initialRouteName: 'Home',
+//   }
+// );
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <TableModule />
+    <TableSearchModule />
   </React.StrictMode>
 );
 

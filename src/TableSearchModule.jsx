@@ -5,7 +5,7 @@ import React from 'react';
 const IMDB_API_URL = "https://www.imdb.com/title/"
 const INVENTORY_API_URL = "https://www.omdbapi.com/?apikey=1ac1214b"
 
-class HomeScreen extends React.Component {
+class TableSearchModule extends React.Component {
 
     constructor(props) {
         super(props);
@@ -13,11 +13,13 @@ class HomeScreen extends React.Component {
     }
 
     // GET request function to your Mock API
-    fetchInventory() {
+    fetchInventory(newPage) {
         let textId = document.getElementById("textId").value.trim();
         let yearId = document.getElementById("yearId").value.trim();
 
-        console.log(`fetchInventory called with text: '${textId}', year: '${yearId}', page: ${this.state.pageNumber}`);
+        console.log(`fetchInventory called with text: '${textId}', year: '${yearId}', page: ${newPage}`);
+
+        this.setState({ pageNumber: newPage });
 
         if (textId === "") {
             this.setState({ data: [] });
@@ -28,8 +30,8 @@ class HomeScreen extends React.Component {
         if (yearId !== "") {
             uri = uri + "&y=" + yearId;
         }
-        if (this.state.pageNumber > 1) {
-            uri = uri + "&page=" + this.state.pageNumber;
+        if (newPage > 1) {
+            uri = uri + "&page=" + newPage;
         }
 
         fetch(`${INVENTORY_API_URL}${uri}`)
@@ -54,22 +56,15 @@ class HomeScreen extends React.Component {
     }
 
     goNextPage() {
-        this.setState(prevState => ({
-            pageNumber: prevState.pageNumber + 1
-        }));
-        this.fetchInventory();
+        let newPage = this.state.pageNumber + 1;
+        this.fetchInventory(newPage);
     }
     goPrevPage() {
-        this.setState(prevState => ({
-            pageNumber: ((prevState.pageNumber > 1) ? prevState.pageNumber - 1 : prevState.pageNumber)
-        }));
-        this.fetchInventory();
+        let newPage = ((this.state.pageNumber > 1) ? this.state.pageNumber - 1 : 1);
+        this.fetchInventory(newPage);
     }
     goFirstPage() {
-        this.setState(prevState => ({
-            pageNumber: 1
-        }));
-        this.fetchInventory();
+        this.fetchInventory(1);
     }
 
     openDetailsView = ((imdbID) => {
@@ -133,4 +128,4 @@ class HomeScreen extends React.Component {
     }
 }
 
-export default HomeScreen;
+export default TableSearchModule;
