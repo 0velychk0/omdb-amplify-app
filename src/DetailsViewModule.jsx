@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 // const API_HOST = "http://localhost:3000";
 // const INVENTORY_API_URL = `${API_HOST}/TestData/data.json`;
@@ -7,12 +7,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 const INVENTORY_API_URL = "https://www.omdbapi.com/?apikey=1ac1214b"
 
 const defaultValue = {
-    Title: "TEST",
-    Year: "1981",
-    Rated: "PG",
-    Released: "12 Jun 1981",
-    Runtime: "115 min",
-    Poster: "https://m.media-amazon.com/images/M/MV5BNDQxMDE1OTg4NV5BMl5BanBnXkFtZTcwMTMzOTQzMw@@._V1_SX300.jpg",
+    Title: "",
+    Year: "",
+    Rated: "",
+    Released: "",
+    Runtime: "",
+    Poster: "",
 };
 
 function DetailsViewModule(props) {
@@ -21,7 +21,7 @@ function DetailsViewModule(props) {
 
     const [data, setData] = useState(defaultValue);
     const location = useLocation();
-    let imdbId = 'tt0337978';
+    let imdbId = '';
 
     function fetchInventory() {
         imdbId = (location != null && location.state != null && location.state.getImdbID != null)

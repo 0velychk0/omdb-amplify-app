@@ -106,7 +106,7 @@ function TableSearchModule() {
             <input placeholder="optional" type="text" id="yearId"></input>
             &nbsp;&nbsp;
             <button onClick={() => fetchInventory(1)}>Search</button>
-            <p></p>
+            <p />
             <div id='resultSectionId' className="hideme">
                 <p>Found: {totalCount} results. &nbsp;&nbsp;
                     <button onClick={() => fetchInventory(pageNumber - 1)}>Previous page</button> &nbsp;&nbsp;
@@ -120,6 +120,7 @@ function TableSearchModule() {
                         <tbody>{tableRows}</tbody>
                     </table>
                 </div>
+                <hr />
                 <p>Found: {totalCount} results. &nbsp;&nbsp;
                     <button onClick={() => fetchInventory(pageNumber - 1)}>Previous page</button> &nbsp;&nbsp;
                     Displayed from {(pageNumber - 1) * 10 + 1} till {pageNumber * 10} &nbsp;&nbsp;
