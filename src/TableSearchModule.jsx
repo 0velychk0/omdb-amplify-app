@@ -28,11 +28,10 @@ function TableSearchModule() {
         pageNumber = requiredPage;
         if (pageNumber < 1) pageNumber = 1;
 
-        console.log('fetchInventory called');
         let textId = document.getElementById("textId").value.trim();
         let yearId = document.getElementById("yearId").value.trim();
 
-        console.log(`fetchInventory called with text: '${textId}', year: '${yearId}'`);
+        console.log(`fetchInventory called with text: '${textId}', year: '${yearId}', requiredPage: '${requiredPage}'`);
 
         if (textId === "") {
             setData([]);
@@ -53,7 +52,7 @@ function TableSearchModule() {
                 totalCount = json.totalResults;
                 if (totalCount > 0)
                     document.getElementById('resultSectionId').className = "";
-                else 
+                else
                     document.getElementById('resultSectionId').className = "hideme";
                 setData((json.Search != null) ? json.Search : [])
             })
@@ -66,14 +65,8 @@ function TableSearchModule() {
 
     function openDetailsView(imdbID) {
         console.log("try to open: " + imdbID);
-        navigate("/detailsViewModule", { state: {getImdbID: imdbID }});
+        navigate("/detailsViewModule", { state: { getImdbID: imdbID } });
     }
-
-    // // Calling the function on component mount
-    // useEffect(() => {
-    //     console.log('useEffect called');
-    //     fetchInventory();
-    // }, []);
 
     const tableColumns = columns.map((info) => {
         return (
@@ -86,7 +79,7 @@ function TableSearchModule() {
         return (
             // <NavLink to="/detailsViewModule" state={{ imdbid: info.imdbID }}>
             <tr key={info.imdbID} onClick={() => openDetailsView(info.imdbID)}>
-            {/* <tr key={info.imdbID} > */}
+                {/* <tr key={info.imdbID} > */}
                 <td><img alt="poster" src={info.Poster}></img></td>
                 <td>{info.Title}</td>
                 <td>{info.Year}</td>
@@ -97,6 +90,8 @@ function TableSearchModule() {
         )
     });
 
+    let nextPage = (pageNumber * 10 < totalCount) ? pageNumber + 1 : pageNumber;
+    let prevPage = (pageNumber > 1) ? pageNumber - 1 : pageNumber;
     return (
         <div className="tableBlock">
             <label>Title:</label>
@@ -109,9 +104,9 @@ function TableSearchModule() {
             <p />
             <div id='resultSectionId' className="hideme">
                 <p>Found: {totalCount} results. &nbsp;&nbsp;
-                    <button onClick={() => fetchInventory(pageNumber - 1)}>Previous page</button> &nbsp;&nbsp;
-                    Displayed from {(pageNumber - 1) * 10 + 1} till {pageNumber * 10} &nbsp;&nbsp;
-                    <button onClick={() => fetchInventory(pageNumber + 1)}>Next Page</button></p>
+                    <button onClick={() => fetchInventory(prevPage)}>Previous page</button> &nbsp;&nbsp;
+                    Current page {pageNumber} &nbsp;&nbsp;
+                    <button onClick={() => fetchInventory(nextPage)}>Next Page</button></p>
                 <div>
                     <table className="table table-stripped">
                         <thead>
@@ -122,9 +117,9 @@ function TableSearchModule() {
                 </div>
                 <hr />
                 <p>Found: {totalCount} results. &nbsp;&nbsp;
-                    <button onClick={() => fetchInventory(pageNumber - 1)}>Previous page</button> &nbsp;&nbsp;
-                    Displayed from {(pageNumber - 1) * 10 + 1} till {pageNumber * 10} &nbsp;&nbsp;
-                    <button onClick={() => fetchInventory(pageNumber + 1)}>Next Page</button></p>
+                    <button onClick={() => fetchInventory(prevPage)}>Previous page</button> &nbsp;&nbsp;
+                    Current page {pageNumber} &nbsp;&nbsp;
+                    <button onClick={() => fetchInventory(nextPage)}>Next Page</button></p>
             </div>
         </div>
     );
