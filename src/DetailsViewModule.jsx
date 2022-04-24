@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
 
 // const API_HOST = "http://localhost:3000";
 // const INVENTORY_API_URL = `${API_HOST}/TestData/data.json`;
 // const IMDB_API_URL = "https://www.imdb.com/title/"
 const INVENTORY_API_URL = "https://www.omdbapi.com/?apikey=1ac1214b"
+
 const defaultValue = {
     Title: "TEST",
     Year: "1981",
@@ -13,52 +15,51 @@ const defaultValue = {
     Poster: "https://m.media-amazon.com/images/M/MV5BNDQxMDE1OTg4NV5BMl5BanBnXkFtZTcwMTMzOTQzMw@@._V1_SX300.jpg",
 };
 
-class DetailsViewModule extends React.Component {
+function DetailsViewModule(props) {
 
-    constructor(props) {
-        super(props);
-        this.state = { resData: defaultValue, imdbId: 'tt0337978' };
-    }
+    // let navigate = useNavigate();
 
-    // GET request function to your Mock API
-    fetchInventory() {
+    const [data, setData] = useState(defaultValue);
+    const location = useLocation();
+    let imdbId = 'tt0337978';
 
-        console.log(`fetchInventory called with imdbId: '${this.state.imdbId}'`);
+    function fetchInventory() {
+        imdbId = (location != null && location.state != null && location.state.getImdbID != null)
+            ? location.state.getImdbID : "";
+        console.log(`fetchInventory called with imdbId: '${imdbId}'`);
 
-        if (this.state.imdbId === "") {
-            this.setState({ resData: defaultValue });
+        if (imdbId === "") {
+            setData({});
             // document.getElementById('resultSectionId').className = "hideme";
             return;
         }
-        let uri = "&i=" + this.state.imdbId;
+        let uri = "&i=" + imdbId;
 
         fetch(`${INVENTORY_API_URL}${uri}`)
             .then(res => res.json())
-            .then(json => this.setState({ resData: json }))
+            .then(json => setData(json))
             .catch(e => {
                 console.error("error:" + e);
                 // document.getElementById('resultSectionId').className = "hideme";
-                this.setState({ resData: defaultValue });
+                this.setData(defaultValue);
             });
     }
 
-    componentDidMount() {
+    useEffect(() => {
         console.log('useEffect called');
-        this.fetchInventory();
-    }
+        fetchInventory();
+    }, []);
 
-    render() {
-        return (
-            <div>
-                <img alt="poster" src={this.state.resData.Poster}></img>
-                <li>Title: {this.state.resData.Title}</li>
-                <li>Year: {this.state.resData.Year}</li>
-                <li>Rated: {this.state.resData.Rated}</li>
-                <li>Released: {this.state.resData.Released}</li>
-                <li>Runtime: {this.state.resData.Runtime}</li>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <img alt="poster" src={data.Poster}></img>
+            <li>Title: {data.Title}</li>
+            <li>Year: {data.Year}</li>
+            <li>Rated: {data.Rated}</li>
+            <li>Released: {data.Released}</li>
+            <li>Runtime: {data.Runtime}</li>
+        </div>
+    );
 }
 
 export default DetailsViewModule;

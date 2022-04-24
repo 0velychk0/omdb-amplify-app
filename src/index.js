@@ -2,23 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import TableSearchModule from "./TableSearchModule";
+import RouteTest from "./RouteTest";
 
-// const RootStack = createStackNavigator(
-//   {
-//     Home: HomeScreen,
-//     Details: DetailsScreen,
-//   },
-//   {
-//     initialRouteName: 'Home',
-//   }
-// );
+import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <TableSearchModule />
-  </React.StrictMode>
+  <BrowserRouter>
+    <RouteTest />
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
