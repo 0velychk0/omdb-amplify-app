@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import RouteTest from "./RouteTest";
-
 import { BrowserRouter } from "react-router-dom";
+// import './index.css';
+import reportWebVitals from './reportWebVitals';
+import BaseRouteModule from "./BaseRouteModule";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <RouteTest />
+    <BaseRouteModule />
   </BrowserRouter>
 );
 
