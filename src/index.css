@@ -19,3 +19,22 @@ code {
 .tableBlock {
   background-color: #ffffff;
 }
+
+.icon-box-image {
+  width: 210px;
+  height: 310px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  align-items:center;
+  background-color:whitesmoke;
+}
+.icon-box-image:hover {
+  background-color: gold;
+}
+
+.icon-image {
+  max-width: 200px;
+  max-height: 300px;
+  height: auto
+}
