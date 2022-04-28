@@ -13,7 +13,7 @@ code {
 }
 
 .hideme {
-  display:none;
+  display: none;
 }
 
 .tableBlock {
@@ -26,9 +26,10 @@ code {
   display: inline-block;
   vertical-align: middle;
   text-align: center;
-  align-items:center;
-  background-color:whitesmoke;
+  align-items: center;
+  background-color: whitesmoke;
 }
+
 .icon-box-image:hover {
   background-color: gold;
 }
@@ -41,13 +42,15 @@ code {
 
 /* Modal Wondow styles */
 .modal-main {
-  position:fixed;
+  position: fixed;
   background: gainsboro;
   width: 60%;
   height: auto;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid goldenrod;
+  border-radius: 15px;
 }
 
 .display-block {
