@@ -38,3 +38,30 @@ code {
   max-height: 300px;
   height: auto
 }
+
+/* Modal Wondow styles */
+.modal-main {
+  position:fixed;
+  background: gainsboro;
+  width: 60%;
+  height: auto;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
+
+/* The Modal Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { createSearchParams, useNavigate, useLocation } from "react-router-dom";
+import ModalViewModule from "./ModalViewModule";
 
 const INVENTORY_API_URL = "https://www.omdbapi.com/?apikey=1ac1214b"
 
 function IconsViewModule() {
 
+    const [state, setState] = useState({ show: false, imdbID:'' });
     const location = useLocation();
     const navigate = useNavigate();
     const [data, setData] = useState({
@@ -97,17 +99,17 @@ function IconsViewModule() {
         fetchInventory(textId, yearId, 1);
     }
 
-    function openDetailsView(imdbID) {
-        console.log("try to open: " + imdbID);
+    // function openDetailsView(imdbID) {
+    //     console.log("try to open: " + imdbID);
 
-        navigate({
-            pathname: "/detailsViewModule",
-            search: createSearchParams({
-                imdbID: imdbID
-            }).toString(),
-            refresh: true
-        });
-    }
+    //     navigate({
+    //         pathname: "/detailsViewModule",
+    //         search: createSearchParams({
+    //             imdbID: imdbID
+    //         }).toString(),
+    //         refresh: true
+    //     });
+    // }
 
     function goNextPage() {
         let textId = document.getElementById("textId").value.trim();
@@ -141,12 +143,27 @@ function IconsViewModule() {
         fetchInventory(textId, yearId, prevPageNum);
     }
 
+    function showModal(item, imdbID) {
+        item.stopPropagation();
+        setState({
+          show: !state.show,
+          imdbID: imdbID
+        });
+    };
+    
+    function closeModal(item) {
+        setState({
+          show: false,
+          imdbID: ""
+        });
+    };
+
     const tableRows = data.result.map((info) => {
         return (
             <div
                 key={info.imdbID}
                 className="icon-box-image"
-                onClick={() => openDetailsView(info.imdbID)}>
+                onClick={e => { showModal(e, info.imdbID); }} >
 
                 {(() => {
                     if (info.Poster != null && info.Poster.startsWith('http')) {
@@ -174,7 +191,10 @@ function IconsViewModule() {
     });
 
     return (
-        <div className="tableBlock">
+        <div className="tableBlock" onClick={closeModal} >
+
+            <ModalViewModule show={state.show} imdbID={state.imdbID} />
+
             <label>Title:</label>
             <input placeholder="obligatory" type="text" id="textId" defaultValue={data.title}></input>
             &nbsp;&nbsp;

@@ -1,5 +1,5 @@
 import React from 'react';
-import TableSearchModule from "./TableSearchModule";
+// import TableSearchModule from "./TableSearchModule";
 import IconsViewModule from "./IconsViewModule";
 import DetailsViewModule from "./DetailsViewModule";
 import { Routes, Route } from "react-router-dom";
