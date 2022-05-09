@@ -68,3 +68,21 @@ code {
   font-size: 28px;
   font-weight: bold;
 }
+
+/*By Mary*/
+
+.wrapper {
+  display: flex; 
+}
+
+.side-menu,.banners {
+  width: 15%;
+}
+
+.root {
+  width: 70%;
+}
+
+.icon-image  {                          
+  padding-top: 5px;
+}
