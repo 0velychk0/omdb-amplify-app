@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { createSearchParams, useNavigate, useLocation } from "react-router-dom";
 import ModalViewModule from "./ModalViewModule";
+import SingleIconViewModule from './SingleIconViewModule';
 
 const INVENTORY_API_URL = "https://www.omdbapi.com/?apikey=1ac1214b"
 
 function IconsViewModule() {
 
-    const [state, setState] = useState({ show: false, imdbID:'' });
+    const [state, setState] = useState({ show: false, imdbID: '' });
     const location = useLocation();
     const navigate = useNavigate();
     const [data, setData] = useState({
@@ -18,7 +19,7 @@ function IconsViewModule() {
     });
 
     useEffect(() => {
-        console.log('useEffect called');
+        console.log('IconsViewModule useEffect called');
         const params = new URLSearchParams(location.search);
         const searchTitle = params.get('title');
         const searchYear = params.get('year');
@@ -30,7 +31,7 @@ function IconsViewModule() {
     // GET request function to your Mock API
     function fetchInventory(searchTitle, searchYear, searchPage) {
 
-        console.log(`fetchInventory called with text: '${searchTitle}', year: '${searchYear}', requiredPage: '${searchPage}'`);
+        console.log(`IconsViewModule:fetchInventory called with text: '${searchTitle}', year: '${searchYear}', requiredPage: '${searchPage}'`);
 
         if (searchTitle == null || searchTitle === "") {
             setData({
@@ -55,13 +56,13 @@ function IconsViewModule() {
             .then(res => res.json())
             .then(json => {
                 if (json.Response && json.Search != null) {
-                    setData({
+                    setData((prevData) => ({
                         title: searchTitle,
                         year: searchYear,
                         page: searchPage,
                         totalResults: json.totalResults,
-                        result: json.Search
-                    });
+                        result: ((searchPage > 1) ? (prevData.result.concat(json.Search)) : json.Search)
+                    }));
                 } else {
                     setData({
                         title: searchTitle,
@@ -85,6 +86,8 @@ function IconsViewModule() {
     }
 
     function updateCurrentView() {
+        console.log('IconsViewModule:updateCurrentView called');
+
         let textId = document.getElementById("textId").value.trim();
         let yearId = document.getElementById("yearId").value.trim();
 
@@ -99,93 +102,38 @@ function IconsViewModule() {
         fetchInventory(textId, yearId, 1);
     }
 
-    // function openDetailsView(imdbID) {
-    //     console.log("try to open: " + imdbID);
+    function showModal(item, imdbID) {
+        console.log('IconsViewModule:showModal called');
 
-    //     navigate({
-    //         pathname: "/detailsViewModule",
-    //         search: createSearchParams({
-    //             imdbID: imdbID
-    //         }).toString(),
-    //         refresh: true
-    //     });
-    // }
+        item.stopPropagation();
+        setState({
+            show: !state.show,
+            imdbID: imdbID
+        });
+    };
 
-    function goNextPage() {
+    function closeModal(item) {
+        console.log('IconsViewModule:closeModal called');
+        if (state.show) {
+            setState({
+                show: false,
+                imdbID: ""
+            });
+        }
+    };
+
+    function loadMoreResults() {
+        console.log("IconsViewModule:load more results");
         let textId = document.getElementById("textId").value.trim();
         let yearId = document.getElementById("yearId").value.trim();
         let nextPageNum = ((parseInt(data.page) * 10) > parseInt(data.totalResults)) ? parseInt(data.page) : (parseInt(data.page) + 1);
-
-        navigate({
-            pathname: "/",
-            search: createSearchParams({
-                title: textId,
-                year: yearId,
-                page: nextPageNum
-            }).toString()
-        });
         fetchInventory(textId, yearId, nextPageNum);
-    }
-
-    function goPrevPage() {
-        let textId = document.getElementById("textId").value.trim();
-        let yearId = document.getElementById("yearId").value.trim();
-        let prevPageNum = (parseInt(data.page) > 1) ? (parseInt(data.page) - 1) : 1;
-
-        navigate({
-            pathname: "/",
-            search: createSearchParams({
-                title: textId,
-                year: yearId,
-                page: prevPageNum
-            }).toString()
-        });
-        fetchInventory(textId, yearId, prevPageNum);
-    }
-
-    function showModal(item, imdbID) {
-        item.stopPropagation();
-        setState({
-          show: !state.show,
-          imdbID: imdbID
-        });
-    };
-    
-    function closeModal(item) {
-        setState({
-          show: false,
-          imdbID: ""
-        });
     };
 
     const tableRows = data.result.map((info) => {
         return (
-            <div
-                key={info.imdbID}
-                className="icon-box-image"
-                onClick={e => { showModal(e, info.imdbID); }} >
-
-                {(() => {
-                    if (info.Poster != null && info.Poster.startsWith('http')) {
-                        return (
-                            <img
-                                key={info.imdbID}
-                                alt="poster"
-                                className="icon-image"
-                                src={info.Poster}
-                            />
-                        )
-                    } else {
-                        return (
-                            <>
-                                <li>Title: {info.Title}</li>
-                                <li>Year: {info.Year}</li>
-                                <li>Type: {info.Type}</li>
-                            </>
-                        )
-                    }
-                })()}
-
+            <div key={info.imdbID} className="icon-box-image" onClick={e => { showModal(e, info.imdbID); }} >
+                <SingleIconViewModule info={info} />
             </div>
         )
     });
@@ -205,13 +153,10 @@ function IconsViewModule() {
             &nbsp;&nbsp;
             Found: {data.totalResults} results.
             &nbsp;&nbsp;
-            <button onClick={() => goPrevPage()}>Previous page</button>
-            &nbsp;&nbsp;
-            Current page {data.page}
-            &nbsp;&nbsp;
-            <button onClick={() => goNextPage()}>Next Page</button>
             <hr />
             <div id='resultSectionId'>{tableRows}</div>
+            <hr />
+            <button onClick={() => loadMoreResults()}>Load More Results</button>
         </div>
     );
 }

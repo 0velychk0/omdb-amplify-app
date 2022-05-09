@@ -52,7 +52,7 @@ function ModalViewModule(props) {
 
     function fetchInventory(imdbId) {
 
-        console.log(`fetchInventory called with imdbId: '${imdbId}'`);
+        console.log(`ModalViewModule:fetchInventory called with imdbId: '${imdbId}'`);
 
         if (imdbId === "") {
             setData({});
@@ -70,7 +70,7 @@ function ModalViewModule(props) {
     }
 
     useEffect(() => {
-        console.log('useEffect called');
+        console.log('ModalViewModule:useEffect called');
 
         // const params = new URLSearchParams(location.search);
         const imdbID = props.imdbID//  params.get('imdbID');
