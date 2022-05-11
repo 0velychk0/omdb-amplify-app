@@ -5,44 +5,31 @@ const IMDB_API_URL = "https://www.imdb.com/title/"
 const INVENTORY_API_URL = "https://www.omdbapi.com/?apikey=1ac1214b"
 
 const defaultValue = {
-    "Title": "Live Free or Die Hard",
-    "Year": "2007",
-    "Rated": "PG-13",
-    "Released": "27 Jun 2007",
-    "Runtime": "128 min",
-    "Genre": "Action, Thriller",
-    "Director": "Len Wiseman",
-    "Writer": "John Carlin, Roderick Thorp, Mark Bomback",
-    "Actors": "Bruce Willis, Justin Long, Timothy Olyphant",
-    "Plot": "John McClane and a young hacker join forces to take down master cyber-terrorist Thomas Gabriel in Washington D.C.",
-    "Language": "English, Italian, French",
-    "Country": "United States, United Kingdom",
-    "Awards": "3 wins & 16 nominations",
-    "Poster": "n/a",
-    "Ratings": [
-        {
-            "Source": "Internet Movie Database",
-            "Value": "7.1/10"
-        },
-        {
-            "Source": "Rotten Tomatoes",
-            "Value": "82%"
-        },
-        {
-            "Source": "Metacritic",
-            "Value": "69/100"
-        }
-    ],
-    "Metascore": "69",
-    "imdbRating": "7.1",
-    "imdbVotes": "402,268",
-    "imdbID": "tt0337978",
-    "Type": "movie",
-    "DVD": "20 Nov 2007",
-    "BoxOffice": "$134,529,403",
-    "Production": "N/A",
-    "Website": "N/A",
-    "Response": "True"
+    "Title": "-",
+    "Year": "-",
+    "Rated": "-",
+    "Released": "-",
+    "Runtime": "-",
+    "Genre": "-",
+    "Director": "-",
+    "Writer": "-",
+    "Actors": "-",
+    "Plot": "-",
+    "Language": "-",
+    "Country": "-",
+    "Awards": "-",
+    "Poster": "-",
+    "Ratings": [],
+    "Metascore": "-",
+    "imdbRating": "-",
+    "imdbVotes": "-",
+    "imdbID": "-",
+    "Type": "-",
+    "DVD": "-",
+    "BoxOffice": "-",
+    "Production": "-",
+    "Website": "-",
+    "Response": "-"
 };
 
 function ModalViewModule(props) {
@@ -55,7 +42,6 @@ function ModalViewModule(props) {
         console.log(`ModalViewModule:fetchInventory called with imdbId: '${imdbId}'`);
 
         if (imdbId === "") {
-            setData({});
             return;
         }
         let uri = "&i=" + imdbId;
@@ -72,8 +58,7 @@ function ModalViewModule(props) {
     useEffect(() => {
         console.log('ModalViewModule:useEffect called');
 
-        // const params = new URLSearchParams(location.search);
-        const imdbID = props.imdbID//  params.get('imdbID');
+        const imdbID = props.imdbID
 
         if (imdbID == null || imdbID === "")
             return;

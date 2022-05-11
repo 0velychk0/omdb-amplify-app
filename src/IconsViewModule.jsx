@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { createSearchParams, useNavigate, useLocation } from "react-router-dom";
+import React, { useState } from 'react';
 import ModalViewModule from "./ModalViewModule";
 import SingleIconViewModule from './SingleIconViewModule';
 
@@ -8,8 +7,6 @@ const INVENTORY_API_URL = "https://www.omdbapi.com/?apikey=1ac1214b"
 function IconsViewModule() {
 
     const [state, setState] = useState({ show: false, imdbID: '' });
-    const location = useLocation();
-    const navigate = useNavigate();
     const [data, setData] = useState({
         title: "",
         year: "",
@@ -18,17 +15,6 @@ function IconsViewModule() {
         result: []
     });
 
-    useEffect(() => {
-        console.log('IconsViewModule useEffect called');
-        const params = new URLSearchParams(location.search);
-        const searchTitle = params.get('title');
-        const searchYear = params.get('year');
-        const searchPage = params.get('page');
-
-        fetchInventory(searchTitle, searchYear, searchPage);
-    }, [location.search]);
-
-    // GET request function to your Mock API
     function fetchInventory(searchTitle, searchYear, searchPage) {
 
         console.log(`IconsViewModule:fetchInventory called with text: '${searchTitle}', year: '${searchYear}', requiredPage: '${searchPage}'`);
@@ -91,14 +77,6 @@ function IconsViewModule() {
         let textId = document.getElementById("textId").value.trim();
         let yearId = document.getElementById("yearId").value.trim();
 
-        navigate({
-            pathname: "/",
-            search: createSearchParams({
-                title: textId,
-                year: yearId,
-                page: 1
-            }).toString()
-        });
         fetchInventory(textId, yearId, 1);
     }
 
