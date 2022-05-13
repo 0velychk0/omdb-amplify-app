@@ -16,6 +16,16 @@ code {
   display: none;
 }
 
+.line-button,
+.line-input {
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin: 8px 0;
+    padding: 8px;
+    /* width: 100%; */
+}
+
 .tableBlock {
   background-color: #ffffff;
 }
@@ -72,10 +82,11 @@ code {
 /*By Mary*/
 
 .wrapper {
-  display: flex; 
+  display: flex;
 }
 
-.side-menu,.banners {
+.side-menu,
+.banners {
   width: 15%;
 }
 
@@ -83,6 +94,6 @@ code {
   width: 70%;
 }
 
-.icon-image  {                          
+.icon-image {
   padding-top: 5px;
 }

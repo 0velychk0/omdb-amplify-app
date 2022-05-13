@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
-import './index.css';
 import reportWebVitals from './reportWebVitals';
 import BaseRouteModule from "./BaseRouteModule";
+
+import './index.css';
+import './authenticationPage.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

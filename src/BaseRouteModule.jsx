@@ -1,7 +1,9 @@
 import React from 'react';
-// import TableSearchModule from "./TableSearchModule";
-import IconsViewModule from "./IconsViewModule";
-import DetailsViewModule from "./DetailsViewModule";
+import IconsViewModule from "./pages/IconsViewModule";
+import DetailsViewModule from "./pages/DetailsViewModule";
+import LogInPage from "./pages/LogInPage";
+import SignUpPage from "./pages/SignUpPage";
+
 import { Routes, Route } from "react-router-dom";
 
 function BaseRouteModule() {
@@ -9,6 +11,8 @@ function BaseRouteModule() {
         <Routes>
             <Route path="/" element={<IconsViewModule />} />
             <Route path="*" element={<IconsViewModule />} />
+            <Route path="/login" element={<LogInPage />} />
+            <Route path="/signUp" element={<SignUpPage />} />
             <Route path="/detailsViewModule" element={<DetailsViewModule />} />
         </Routes>
     );

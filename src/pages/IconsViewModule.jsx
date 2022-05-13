@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ModalViewModule from "./ModalViewModule";
 import SingleIconViewModule from './SingleIconViewModule';
+import AuthenticationPage from './AuthenticationPageViewModule';
 
 const INVENTORY_API_URL = "https://www.omdbapi.com/?apikey=1ac1214b"
 
@@ -117,24 +118,34 @@ function IconsViewModule() {
     });
 
     return (
-        <div className="tableBlock" onClick={closeModal} >
+        <div onClick={closeModal} >
+                <AuthenticationPage />
+                <ModalViewModule show={state.show} imdbID={state.imdbID} />
+            <div class="wrapper">
 
-            <ModalViewModule show={state.show} imdbID={state.imdbID} />
 
-            <label>Title:</label>
-            <input placeholder="obligatory" type="text" id="textId" defaultValue={data.title}></input>
-            &nbsp;&nbsp;
-            <label>Year: </label>
-            <input placeholder="optional" type="text" id="yearId" defaultValue={data.year}></input>
-            &nbsp;&nbsp;
-            <button onClick={() => updateCurrentView()}>Search</button>
-            &nbsp;&nbsp;
-            Found: {data.totalResults} results.
-            &nbsp;&nbsp;
-            <hr />
-            <div id='resultSectionId'>{tableRows}</div>
-            <hr />
-            <button onClick={() => loadMoreResults()}>Load More Results</button>
+                <div class="side-menu"></div>
+
+                <div class="root">
+                    <label>Title:</label>
+                    <input className="line-input" placeholder="obligatory" type="text" id="textId" defaultValue={data.title}></input>
+                    &nbsp;&nbsp;
+                    <label>Year: </label>
+                    <input className="line-input" placeholder="optional" type="text" id="yearId" defaultValue={data.year}></input>
+                    &nbsp;&nbsp;
+                    <button className="line-button" onClick={() => updateCurrentView()}>Search</button>
+                    &nbsp;&nbsp;
+                    Found: {data.totalResults} results.
+                    &nbsp;&nbsp;
+                    <hr />
+                    <div id='resultSectionId'>{tableRows}</div>
+                    <hr />
+                    <button className="line-button" onClick={() => loadMoreResults()}>Load More Results</button>
+                </div>
+
+                <div class="banners"></div>
+
+            </div>
         </div>
     );
 }
