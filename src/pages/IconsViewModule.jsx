@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ModalViewModule from "./ModalViewModule";
 import SingleIconViewModule from './SingleIconViewModule';
-import AuthenticationPage from './AuthenticationPageViewModule';
+import AuthenticationPageViewModule from './AuthenticationPageViewModule';
 
 const INVENTORY_API_URL = "https://www.omdbapi.com/?apikey=1ac1214b"
 
@@ -119,14 +119,14 @@ function IconsViewModule() {
 
     return (
         <div onClick={closeModal} >
-                <AuthenticationPage />
+                <AuthenticationPageViewModule />
+
                 <ModalViewModule show={state.show} imdbID={state.imdbID} />
-            <div class="wrapper">
+            <div className="wrapper">
 
+                <div className="side-menu"></div>
 
-                <div class="side-menu"></div>
-
-                <div class="root">
+                <div className="middle">
                     <label>Title:</label>
                     <input className="line-input" placeholder="obligatory" type="text" id="textId" defaultValue={data.title}></input>
                     &nbsp;&nbsp;
@@ -143,7 +143,7 @@ function IconsViewModule() {
                     <button className="line-button" onClick={() => loadMoreResults()}>Load More Results</button>
                 </div>
 
-                <div class="banners"></div>
+                <div className="banners"></div>
 
             </div>
         </div>
