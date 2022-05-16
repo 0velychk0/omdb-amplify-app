@@ -13,20 +13,23 @@ function AuthenticationPageViewModule() {
     }
 
     if (!user)
-        return <div>
-            <label>Movie search page based on OMDB API </label> &nbsp; &nbsp;
-            <label>You are not logged in -> </label>
-            &nbsp; &nbsp;
-            <button className="line-button" onClick={() => navigate('/signUp')}>Still no account? Sign Up</button>
-            &nbsp; &nbsp;
-            <button className="line-button" onClick={() => navigate('/login')}>Already have an account? Log In</button>
-        </div>
+        return <>
+            <nav>
+                <div className="nav-wrapper">
+                    &nbsp; &nbsp; <h4 className="brand-logo">Movie search page based on OMDB API </h4>
+                    <ul id="nav-mobile" className="right hide-on-med-and-down">
+                        <li><a href="/signUp">Still no account? Sign Up</a></li>
+                        <li><a href="/login">Already have an account? Log In</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </>
 
-    return <div>
+    return <>
         <img alt="poster" src={user.userIconLink} className="user-icon-image"></img> &nbsp; &nbsp;
         <label>user name: user.userName</label> &nbsp; &nbsp;
         <button className="line-button" onClick={logOut}>Log Out</button>
-    </div>
+    </>
 }
 
 export default AuthenticationPageViewModule;

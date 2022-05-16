@@ -119,28 +119,43 @@ function IconsViewModule() {
 
     return (
         <div onClick={closeModal} >
-                <AuthenticationPageViewModule />
+            <AuthenticationPageViewModule />
 
-                <ModalViewModule show={state.show} imdbID={state.imdbID} />
+            <ModalViewModule show={state.show} imdbID={state.imdbID} />
             <div className="wrapper">
 
                 <div className="side-menu"></div>
 
                 <div className="middle">
-                    <label>Title:</label>
-                    <input className="line-input" placeholder="obligatory" type="text" id="textId" defaultValue={data.title}></input>
-                    &nbsp;&nbsp;
-                    <label>Year: </label>
-                    <input className="line-input" placeholder="optional" type="text" id="yearId" defaultValue={data.year}></input>
-                    &nbsp;&nbsp;
-                    <button className="line-button" onClick={() => updateCurrentView()}>Search</button>
-                    &nbsp;&nbsp;
-                    Found: {data.totalResults} results.
-                    &nbsp;&nbsp;
+                    <div className="row">
+
+                        <div className="input-field col s6">
+                            <input id="textId" type="text" className="validate" />
+                            <label for="textId">Title (obligatory)</label>
+                        </div>
+
+                        <div className="input-field col s6">
+                            <input id="yearId" type="text" className="validate" />
+                            <label for="yearId">Year (optional)</label>
+                        </div>
+
+                        <div className="input-field col s6">
+                            <a className="waves-effect waves-light btn" onClick={() => updateCurrentView()}>Search</a>
+                        </div>
+
+                        <div className="input-field col s6">
+                            Found: {data.totalResults} results.
+                        </div>
+
+                    </div>
+
                     <hr />
                     <div id='resultSectionId'>{tableRows}</div>
                     <hr />
-                    <button className="line-button" onClick={() => loadMoreResults()}>Load More Results</button>
+                    <div className="center-align">
+                    <a className="waves-effect waves-light btn" onClick={() => loadMoreResults()}>Load More Results</a>
+                    </div>
+                    <hr />
                 </div>
 
                 <div className="banners"></div>

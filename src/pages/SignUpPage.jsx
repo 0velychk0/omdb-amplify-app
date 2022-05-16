@@ -26,7 +26,7 @@ function SignUpPage() {
     }
 
     return (
-        <div className="content-container">
+        <div className="content-container modal-main">
             <h1>Sign Up</h1>
             {errorMessage && <div className="fail">{errorMessage}</div>}
             <input

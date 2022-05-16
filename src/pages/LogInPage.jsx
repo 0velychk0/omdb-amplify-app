@@ -22,7 +22,7 @@ function LogInPage() {
     }
 
     return (
-        <div className="content-container">
+        <div className="content-container modal-main">
             <h1>Log In</h1>
             {errorMessage && <div className="fail">{errorMessage}</div>}
             <input
