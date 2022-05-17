@@ -117,6 +117,8 @@ function IconsViewModule() {
         )
     });
 
+    const showHideClassName = (data.totalResults && data.totalResults > 0) ? '' : 'display-none';
+
     return (
         <div onClick={closeModal} >
             <AuthenticationPageViewModule />
@@ -148,14 +150,15 @@ function IconsViewModule() {
                         </div>
 
                     </div>
-
-                    <hr />
-                    <div id='resultSectionId'>{tableRows}</div>
-                    <hr />
-                    <div className="center-align">
-                    <a className="waves-effect waves-light btn" onClick={() => loadMoreResults()}>Load More Results</a>
+                    <div className={showHideClassName}>
+                        <hr />
+                        <div id='resultSectionId'>{tableRows}</div>
+                        <hr />
+                        <div className="center-align">
+                            <a className="waves-effect waves-light btn" onClick={() => loadMoreResults()}>Load More Results</a>
+                        </div>
+                        <hr />
                     </div>
-                    <hr />
                 </div>
 
                 <div className="banners"></div>
